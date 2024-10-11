@@ -150,7 +150,9 @@ def awesome_oscillator(stock_data):
     ao = median_price.rolling(window=5).mean() - median_price.rolling(window=34).mean()
     return ao
 
-for stock, data in stock_data_dict.items():
-    ao = awesome_oscillator(data)
-    st.subheader(f"Awesome Oscillator for {stock}")
-    st.line_chart(ao)
+# Display AO for a selected stock
+if stock_data_dict:
+    selected_stock = st.sidebar.selectbox('Select Stock for Awesome Oscillator:', list(stock_data_dict.keys()), index=0)
+    ao_data = awesome_oscillator(stock_data_dict[selected_stock])
+    st.subheader(f"Awesome Oscillator for {selected_stock}")
+    st.line_chart(ao_data)
